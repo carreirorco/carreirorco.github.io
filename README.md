@@ -1,1 +1,0 @@
-# The Rafael Carreiro blog

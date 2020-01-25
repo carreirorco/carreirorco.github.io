@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2020-01-25T01:28:56-03:00</updated><id>http://localhost:4000/blog/feed.xml</id><title type="html">Rafael Carreiro</title><subtitle>This is my little slice of the internet. Here I'll write about linux, shellscript, ansible, kubernetes and others related things ...</subtitle><entry><title type="html">How to install kubernetes using ansible!</title><link href="http://localhost:4000/blog/ansible/kubernetes/2020/01/25/how-to-install-kubernetes-using-ansible.html" rel="alternate" type="text/html" title="How to install kubernetes using ansible!" /><published>2020-01-25T00:00:00-03:00</published><updated>2020-01-25T00:00:00-03:00</updated><id>http://localhost:4000/blog/ansible/kubernetes/2020/01/25/how-to-install-kubernetes-using-ansible</id><content type="html" xml:base="http://localhost:4000/blog/ansible/kubernetes/2020/01/25/how-to-install-kubernetes-using-ansible.html">&lt;h1 id=&quot;how-to-install-kubernetes-using-ansible&quot;&gt;How to install kubernetes using ansible&lt;/h1&gt;
+
+&lt;p&gt;This is an easy way to install k8s using the ansible.&lt;/p&gt;
+
+&lt;p&gt;In this moment I’m using Fedora 31 on my local machine and CentOS 8 on remote server.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;1 - install ansible in your local machine:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo dnf install -y ansible&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2 - create a folder to work:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mkdir -p ~/Lab/ansible/k8s/roles &amp;amp;&amp;amp; cd ~/Lab/ansible/k8s&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3 - install roles from ansible-galaxy:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ansible-galaxy install geerlingguy.kubernetes -p roles
+ansible-galaxy install geerlingguy.docker -p roles
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;4 - create playbook:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; playbook.yml
+- hosts: all
+
+  vars:
+    kubernetes_allow_pods_on_master: true
+
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.kubernetes
+EOF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;5 - create a inventory file:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo -e '[server]\nYOUR_SERVER_IP  ansible_connection=ssh  ansible_ssh_user=root  ansible_ssh_private_key=~/.ssh/id_rsa' &amp;gt; inventory&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;6 - configure a new ssh key:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh-keygen -t rsa&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;7 - copy your public key to server:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh-copy-id -i ~/.ssh/id_rsa root@YOUR_SERVER_IP&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;8 - execute the playbook:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible-playbook -i inventory playbook.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;The roles used here are from https://galaxy.ansible.com/geerlingguy.&lt;/p&gt;
+
+&lt;p&gt;Thanks @geerlingguy !&lt;/p&gt;</content><author><name></name></author><category term="ansible" /><category term="k8s" /><category term="kubernetes" /><category term="linux" /><category term="fedora" /><category term="centos" /><summary type="html">How to install kubernetes using ansible</summary></entry></feed>
