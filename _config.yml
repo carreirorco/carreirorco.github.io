@@ -22,7 +22,7 @@ title: Rafael Carreiro
 email: carreirorco@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   This is my little slice of the internet. Here I'll write about linux, shellscript, ansible, kubernetes and others related things ...
-baseurl: "/blog" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "rafaelcarreiro.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: carreirorco
 github_username:  carreirorco
