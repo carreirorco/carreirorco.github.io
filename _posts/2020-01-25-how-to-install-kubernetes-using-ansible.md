@@ -59,6 +59,12 @@ EOF
 
 `ansible-playbook -i inventory playbook.yml`
 
+That's all folks.
+
+Now you have k8s installed on your remote machine in your remote server.
+
+See you...
+
 --- 
 
 The roles used here are from https://galaxy.ansible.com/geerlingguy.
